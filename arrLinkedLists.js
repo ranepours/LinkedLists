@@ -36,14 +36,13 @@ class LinkedList{
     }
     //return and remove last item
     pop(){
-        if(this.length === 0){
-            throw new Error("Linked List has no values!");
-        } else if (this.tail.next === null){
-            //if next is null, remove and return  this node, shorten length, update tail to have value of null
-            this.tail = null;
-            this.length--;
-            return this;
-        }
+        if(this.length === 0) throw new Error("Linked List has no values!");
+        
+        let prev = this._get(this.length -1);
+        let val = this.tail.val;
+        this.tail.next = null;
+        this.tail = prev;
+        return val;
     }
     //return and remove first item
     shift(){
@@ -51,9 +50,11 @@ class LinkedList{
         if(this.length === 0) throw new Error("Linked List has no values!");
         if(this.head){
             //if there is a head, set new head to head.next, decrement length, return og head
+            let val = this.head.val;
             this.head = this.head.next;
             this.length--;
-            return this;
+            if(this.length < 2) this.tail = this.head;
+            return val;
         }
     }
     //get val at idx
